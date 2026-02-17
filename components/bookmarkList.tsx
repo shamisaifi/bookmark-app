@@ -113,8 +113,15 @@ export default function BookmarkList({ userId }: Props) {
   }, [userId]);
 
   const handleDelete = async (id: string) => {
+    const existing = bookmarks.find((b) => b.id === id);
+    if (!existing) return;
+
     try {
       setDeletingId(id);
+      setError(null);
+
+      // Optimistic UI removal
+      setBookmarks((prev) => prev.filter((b) => b.id !== id));
 
       const { error } = await supabase
         .from("bookmarks")
@@ -124,11 +131,14 @@ export default function BookmarkList({ userId }: Props) {
 
       if (error) throw error;
     } catch (err: any) {
+      // Revert UI if delete fails
+      setBookmarks((prev) => [existing, ...prev]);
       setError(err.message || "Failed to delete bookmark.");
     } finally {
       setDeletingId(null);
     }
   };
+
 
   const getWebsiteLogo = (urlString: string) => {
     try {
