@@ -9,10 +9,18 @@ export default function SignOutButton() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSignOut = async () => {
-    setIsLoading(true);
-    await supabase.auth.signOut();
-    router.push("/login");
-    router.refresh();
+    try {
+      setIsLoading(true);
+      await supabase.removeAllChannels();
+
+      await supabase.auth.signOut();
+
+      router.replace("/login");
+    } catch (err) {
+      console.error("Sign out failed:", err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

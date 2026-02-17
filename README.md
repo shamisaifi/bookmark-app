@@ -2,8 +2,8 @@
 
 A bookmark manager with Google auth and real-time updates.
 
-**Live:** [your-app.vercel.app](https://your-app.vercel.app)
-**Repo:** [GitHub](https://github.com/shamisaifi/bookmark-app)
+**Live:** https://your-app.vercel.app
+**Repo:** https://github.com/shamisaifi/bookmark-app
 
 ## Stack
 Next.js 16 · Supabase (Auth, Database, Realtime) · Tailwind CSS · Vercel
