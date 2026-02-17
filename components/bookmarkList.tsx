@@ -65,7 +65,7 @@ export default function BookmarkList({ userId }: Props) {
               table: "bookmarks",
               filter: `user_id=eq.${userId}`,
             },
-            (payload) => {
+            (payload: any) => {
               if (!isMounted) return;
 
               if (payload.eventType === "INSERT") {
@@ -91,7 +91,7 @@ export default function BookmarkList({ userId }: Props) {
               }
             },
           )
-          .subscribe((status) => {
+          .subscribe((status: string) => {
             if (status === "CHANNEL_ERROR" && isMounted) {
               setError("Realtime connection failed.");
             }
@@ -138,7 +138,6 @@ export default function BookmarkList({ userId }: Props) {
       setDeletingId(null);
     }
   };
-
 
   const getWebsiteLogo = (urlString: string) => {
     try {
